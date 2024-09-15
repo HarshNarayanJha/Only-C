@@ -32,11 +32,12 @@ void enqueue(queue* q, int val) {
 }
 
 int dequeue(queue* q) {
-  int first = 0;
   if (isEmpty(q)) {
     printf("Queue Underflow\n");
     return -1;
   }
+
+  int first;
 
   if (q->front == q->rear) {
     first = q->list[q->front];
