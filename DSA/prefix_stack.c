@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX 20
 
@@ -30,7 +31,7 @@ int main() {
 
   int x, y;
 
-  for (int i = 0; str[i] != '\0'; i++) {
+  for (int i = strlen(str) - 1; i >= 0; i--) {
     if (str[i] >= '0' && str[i] <= '9') {
       push(str[i] - '0');
     } else {
@@ -38,23 +39,23 @@ int main() {
       case '+':
         x = pop();
         y = pop();
-        push(y + x);
+        push(x + y);
         break;
       case '-':
         x = pop();
         y = pop();
-        push(y - x);
+        push(x - y);
         break;
       case '*':
         x = pop();
         y = pop();
-        push(y * x);
+        push(x * y);
         break;
       case '/':
         x = pop();
         y = pop();
         if (y != 0) {
-          push(y / x);
+          push(x / y);
         } else {
           printf("Division By 0\n");
           return 1;
@@ -64,7 +65,7 @@ int main() {
         x = pop();
         y = pop();
         if (y != 0) {
-          push(y / x);
+          push(x % y);
         } else {
           printf("Division By 0\n");
           return 1;
@@ -73,7 +74,7 @@ int main() {
       case '^':
         x = pop();
         y = pop();
-        push((int)pow(y, x));
+        push((int)pow(x, y));
         break;
       default:
         printf("Invalid character: %c\n", str[i]);
