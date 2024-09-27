@@ -50,7 +50,7 @@ int dequeue(queue* q) {
   return first;
 }
 
-void print(queue* q) {
+void printtree(queue* q) {
 
   if (isEmpty(q)) {
     return;
@@ -76,7 +76,7 @@ int main() {
   enqueue(&q, 5);
   enqueue(&q, 6);
 
-  print(&q);
+  printtree(&q);
 
   printf("%d ", dequeue(&q));
   printf("%d ", dequeue(&q));
@@ -84,7 +84,7 @@ int main() {
   printf("%d ", dequeue(&q));
   printf("%d ", dequeue(&q));
 
-  print(&q);
+  printtree(&q);
 
   return 0;
 }

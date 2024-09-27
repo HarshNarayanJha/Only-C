@@ -71,3 +71,9 @@ But making them with arrays is kindof interetsing and challenging
 For a Node at Index `i`,
   Left Child-index = `2i + 1`
   Right Child-index = `2i + 2`
+
+
+## Traversal
+
+1. Preorder
+First the data, then the left subtree and then the right subtree
