@@ -207,10 +207,10 @@ int main() {
   printf("\nTraverse\n1. In Order: \n");
   traverseInOrder(root);
 
-  printf("\nTraverse\n1. Post Order: \n");
+  printf("\nTraverse\n2. Post Order: \n");
   traversePostOrder(root);
 
-  printf("\nTraverse\n1. Pre Order: \n");
+  printf("\nTraverse\n3. Pre Order: \n");
   traversePreOrder(root);
 
   printf("\nMin and Max (Iterative): %d %d", minNodeIter(root),

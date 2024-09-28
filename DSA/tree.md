@@ -96,3 +96,14 @@ than the the value of the node
 and the value of nodes in the right subtress is more than the value of node
 
 Implemented using Linked List or Arrays
+
+## Binary Tree Traversal
+1. Breadth-First-Search (BFS)
+
+It is Level ordered. It means we first need to traverse a whole level before moving to any child nodes.
+Level Order Traversal.
+
+2. Depth-First-Search (DFS)
+
+If we visit a node, we go through it's entire subtree first child's subtree before going to the next child
+  - We can Do Inorder, preorder and postorder in DFS
