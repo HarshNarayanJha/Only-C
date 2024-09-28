@@ -63,6 +63,22 @@ bool insertNode(Node **rootptr, int val) {
   }
 }
 
+bool searchNode(Node *root, int val) {
+  if (root == NULL){
+    return false;
+  }
+
+  if (root->val == val) {
+    return true;
+  }
+
+  if (val > root->val) {
+    return searchNode(root->right, val);
+  } else {
+    return searchNode(root->left, val);
+  }
+}
+
 int sum(Node *root) {
   if (root == NULL) {
     return 0;
@@ -82,6 +98,10 @@ int main() {
   insertNode(&root, 35);
 
   printTree(root);
+
+  printf("Searching 6 in tree: %d\n", (int) searchNode(root, 6));
+  printf("Searching 20 in tree: %d\n", (int) searchNode(root, 20));
+  printf("Searching 100 in tree: %d\n", (int) searchNode(root, 100));
 
   printf("Sum of Tree: ");
 
