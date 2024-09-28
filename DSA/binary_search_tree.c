@@ -1,6 +1,6 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct Node {
   int val;
@@ -9,7 +9,7 @@ typedef struct Node {
 } Node;
 
 Node *createNode(int val) {
-  Node *newNode = (Node *) malloc(sizeof(Node));
+  Node *newNode = (Node *)malloc(sizeof(Node));
 
   if (newNode != NULL) {
     newNode->val = val;
@@ -35,13 +35,11 @@ void printTree_rec(Node *root, int level) {
 
   printTabs(level);
   printf("%d\n", root->val);
-  printTree_rec(root->left, level+1);
-  printTree_rec(root->right, level+1);
+  printTree_rec(root->left, level + 1);
+  printTree_rec(root->right, level + 1);
 }
 
-void printTree(Node *root) {
-  printTree_rec(root, 0);
-}
+void printTree(Node *root) { printTree_rec(root, 0); }
 
 bool insertNode(Node **rootptr, int val) {
   Node *root = *rootptr;
@@ -64,7 +62,7 @@ bool insertNode(Node **rootptr, int val) {
 }
 
 bool searchNode(Node *root, int val) {
-  if (root == NULL){
+  if (root == NULL) {
     return false;
   }
 
@@ -109,12 +107,49 @@ void traversePreOrder(Node *root) {
   traversePreOrder(root->right);
 }
 
+int minNodeIter(Node *root) {
+  if (root == NULL) {
+    return -1;
+  }
+
+  Node *current = root;
+  while (current->left != NULL) {
+    current = current->left;
+  }
+
+  return current->val;
+}
+
+int maxNodeIter(Node *root) {
+  if (root == NULL) {
+    return -1;
+  }
+
+  Node *current = root;
+  while (current->right != NULL) {
+    current = current->right;
+  }
+
+  return current->val;
+}
+
 int sum(Node *root) {
   if (root == NULL) {
-    return 0;
+    return -1;
   }
 
   return root->val + sum(root->left) + sum(root->right);
+}
+
+int height(Node *root) {
+  if (root == NULL) {
+    return -1;
+  }
+
+  int left = height(root->left);
+  int right = height(root->right);
+
+  return (left > right) ? left + 1 : right + 1;
 }
 
 int main() {
@@ -129,9 +164,9 @@ int main() {
 
   printTree(root);
 
-  printf("Searching 6 in tree: %d\n", (int) searchNode(root, 6));
-  printf("Searching 20 in tree: %d\n", (int) searchNode(root, 20));
-  printf("Searching 100 in tree: %d\n", (int) searchNode(root, 100));
+  printf("Searching 6 in tree: %d\n", (int)searchNode(root, 6));
+  printf("Searching 20 in tree: %d\n", (int)searchNode(root, 20));
+  printf("Searching 100 in tree: %d\n", (int)searchNode(root, 100));
 
   printf("Sum of Tree: ");
 
@@ -145,6 +180,11 @@ int main() {
 
   printf("\nTraverse\n1. Pre Order: \n");
   traversePreOrder(root);
+
+  printf("\nMin and Max (Iterative): %d %d", minNodeIter(root),
+         maxNodeIter(root));
+
+  printf("\nHeight is: %d", height(root));
 
   free(root);
 }

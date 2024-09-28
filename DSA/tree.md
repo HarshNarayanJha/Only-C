@@ -83,3 +83,16 @@ First the left subtree, then right subtree and then the data
 
 3. In Oder
 First the left subtree, then the data, and lastly the right subtree
+
+### Height of tree
+$$ Height of tree = height of the root Node. $$
+Height of tree is the max(height of left subtree, height of right subtree) + 1
+base case is root == NULL then return -1 (to account for the extra 1 travel to get to the leaf node)
+
+
+# Binary Search Tree
+A binary tree in which for each node the values of nodes in the left subtree is less (or equal in some cases)
+than the the value of the node
+and the value of nodes in the right subtress is more than the value of node
+
+Implemented using Linked List or Arrays
