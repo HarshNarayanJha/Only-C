@@ -79,6 +79,36 @@ bool searchNode(Node *root, int val) {
   }
 }
 
+void traverseInOrder(Node *root) {
+  if (root == NULL) {
+    return;
+  }
+
+  traverseInOrder(root->left);
+  printf("%d ", root->val);
+  traverseInOrder(root->right);
+}
+
+void traversePostOrder(Node *root) {
+  if (root == NULL) {
+    return;
+  }
+
+  traversePostOrder(root->left);
+  traversePostOrder(root->right);
+  printf("%d ", root->val);
+}
+
+void traversePreOrder(Node *root) {
+  if (root == NULL) {
+    return;
+  }
+
+  printf("%d ", root->val);
+  traversePreOrder(root->left);
+  traversePreOrder(root->right);
+}
+
 int sum(Node *root) {
   if (root == NULL) {
     return 0;
@@ -106,6 +136,15 @@ int main() {
   printf("Sum of Tree: ");
 
   printf("%d\n", sum(root));
+
+  printf("\nTraverse\n1. In Order: \n");
+  traverseInOrder(root);
+
+  printf("\nTraverse\n1. Post Order: \n");
+  traversePostOrder(root);
+
+  printf("\nTraverse\n1. Pre Order: \n");
+  traversePreOrder(root);
 
   free(root);
 }

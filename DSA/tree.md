@@ -75,5 +75,11 @@ For a Node at Index `i`,
 
 ## Traversal
 
-1. Preorder
+1. Pre Order
 First the data, then the left subtree and then the right subtree
+
+2. Post Oder
+First the left subtree, then right subtree and then the data
+
+3. In Oder
+First the left subtree, then the data, and lastly the right subtree
