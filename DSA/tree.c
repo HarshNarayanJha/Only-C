@@ -42,6 +42,14 @@ void printTree(Node *root) {
   printTree_rec(root, 0);
 }
 
+int sum(Node *root) {
+  if (root == NULL) {
+    return 0;
+  }
+
+  return root->val + sum(root->left) + sum(root->right);
+}
+
 int main() {
   Node *n1 = createNode(10);
   Node *n2 = createNode(11);
@@ -61,6 +69,10 @@ int main() {
   n3->right = n7;
 
   printTree(n1);
+
+  printf("Sum of Tree: ");
+
+  printf("%d\n", sum(n1));
 
   free(n1);
   free(n2);
