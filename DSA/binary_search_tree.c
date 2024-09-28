@@ -1,3 +1,4 @@
+#include "queue.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -135,7 +136,7 @@ int maxNodeIter(Node *root) {
 
 int sum(Node *root) {
   if (root == NULL) {
-    return -1;
+    return 0;
   }
 
   return root->val + sum(root->left) + sum(root->right);
@@ -152,15 +153,43 @@ int height(Node *root) {
   return (left > right) ? left + 1 : right + 1;
 }
 
+void bfsTraversal(Node *root) {
+  if (root == NULL)
+    return;
+
+  queue_t *Q = queue_create();
+
+  queue_enqueue(Q, root);
+
+  while (!queue_is_empty(Q)) {
+    Node *current = queue_peek(Q);
+    printf("%d ", current->val);
+    if (current->left != NULL)
+      queue_enqueue(Q, current->left);
+    if (current->right != NULL)
+      queue_enqueue(Q, current->right);
+    queue_dequeue(Q);
+  }
+
+  queue_destroy(Q);
+}
+
 int main() {
   Node *root;
   insertNode(&root, 10);
+  insertNode(&root, 12);
   insertNode(&root, 11);
   insertNode(&root, 56);
-  insertNode(&root, 13);
+  insertNode(&root, 15);
   insertNode(&root, 6);
+  insertNode(&root, 13);
   insertNode(&root, 20);
+  insertNode(&root, 94);
   insertNode(&root, 35);
+  insertNode(&root, 1);
+  insertNode(&root, 2);
+  insertNode(&root, 0);
+  insertNode(&root, 8);
 
   printTree(root);
 
@@ -171,6 +200,9 @@ int main() {
   printf("Sum of Tree: ");
 
   printf("%d\n", sum(root));
+
+  printf("\nTraverse BFS:\n");
+  bfsTraversal(root);
 
   printf("\nTraverse\n1. In Order: \n");
   traverseInOrder(root);
