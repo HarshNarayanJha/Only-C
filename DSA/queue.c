@@ -1,90 +1,114 @@
+#include "queue.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAX 5
-
-typedef struct {
-  int list[MAX];
-  int rear;
-  int front;
-} queue;
-
-int isEmpty(queue* q) {
-  return q->front == -1 && q->rear == -1;
+// Create a new empty queue
+queue_t *queue_create(void) {
+  queue_t *q = malloc(sizeof(queue_t));
+  if (q == NULL) {
+    return NULL;
+  }
+  q->front = q->rear = NULL;
+  return q;
 }
 
-int isFull(queue* q) {
-  return q->rear == MAX - 1;
+// Destroy the queue and free all allocated memory
+void queue_destroy(queue_t *q) {
+  queue_node_t *current = q->front;
+  while (current != NULL) {
+    queue_node_t *next = current->next;
+    free(current);
+    current = next;
+  }
+  free(q);
 }
 
-void enqueue(queue* q, int val) {
-  if (isFull(q)) {
-    printf("Queue Overflow\n");
+// Check if the queue is empty
+bool queue_is_empty(queue_t *q) { return q->front == NULL; }
+
+// Add a new element to the back of the queue
+bool queue_enqueue(queue_t *q, void *data) {
+  queue_node_t *new_node = malloc(sizeof(queue_node_t));
+  if (new_node == NULL) {
+    return false;
+  }
+  new_node->data = data;
+  new_node->next = NULL;
+
+  if (queue_is_empty(q)) {
+    q->front = q->rear = new_node;
+  } else {
+    q->rear->next = new_node;
+    q->rear = new_node;
+  }
+  return true;
+}
+
+// Remove and return the element at the front of the queue
+void *queue_dequeue(queue_t *q) {
+  if (queue_is_empty(q)) {
+    fprintf(stderr, "Error: Cannot dequeue from an empty queue.\n");
+    return NULL;
+  }
+
+  queue_node_t *temp = q->front;
+  void *data = temp->data;
+  q->front = temp->next;
+  free(temp);
+
+  if (q->front == NULL) {
+    q->rear = NULL;
+  }
+
+  return data;
+}
+
+// Return the element at the front of the queue without removing it
+void *queue_peek(queue_t *q) {
+  if (queue_is_empty(q)) {
+    fprintf(stderr, "Error: Cannot peek into an empty queue.\n");
+    return NULL;
+  }
+
+  return q->front->data;
+}
+
+// Print the queue elements
+void queue_print(queue_t *q) {
+  if (queue_is_empty(q)) {
+    printf("Queue is empty\n");
     return;
   }
 
-  if (isEmpty(q)) {
-    q->rear = q->front = 0;
-  } else {
-    q->rear++;
+  printf("Queue: ");
+  queue_node_t *current = q->front;
+  while (current != NULL) {
+    printf("%d ", current->data);
+    current = current->next;
   }
-
-  q->list[q->rear] = val;
-}
-
-int dequeue(queue* q) {
-  if (isEmpty(q)) {
-    printf("Queue Underflow\n");
-    return -1;
-  }
-
-  int first;
-
-  if (q->front == q->rear) {
-    first = q->list[q->front];
-    q->rear = q->front = -1;
-  } else {
-    first = q->list[q->front];
-    q->front++;
-  }
-
-  return first;
-}
-
-void printtree(queue* q) {
-
-  if (isEmpty(q)) {
-    return;
-  }
-
-  for (int i = q->front; i < q->rear + 1; i++) {
-    printf("%d -> ", q->list[i]);
-  }
-
   printf("\n");
 }
 
-int main() {
-  queue q;
-  q.rear = -1;
-  q.front = -1;
+int my_main() {
+  queue_t *q = queue_create();
 
-  enqueue(&q, 1);
-  enqueue(&q, 2);
-  enqueue(&q, 3);
-  printf("%d ", dequeue(&q));
-  enqueue(&q, 4);
-  enqueue(&q, 5);
-  enqueue(&q, 6);
+  queue_enqueue(q, (void *)1);
+  queue_enqueue(q, (void *)2);
+  queue_enqueue(q, (void *)3);
+  printf("%d ", queue_dequeue(q));
+  queue_enqueue(q, (void *)4);
+  queue_enqueue(q, (void *)5);
+  queue_enqueue(q, (void *)6);
 
-  printtree(&q);
+  queue_print(q);
 
-  printf("%d ", dequeue(&q));
-  printf("%d ", dequeue(&q));
-  printf("%d ", dequeue(&q));
-  printf("%d ", dequeue(&q));
-  printf("%d ", dequeue(&q));
+  printf("%d ", queue_dequeue(q));
+  printf("%d ", queue_dequeue(q));
+  printf("%d ", queue_dequeue(q));
+  printf("%d ", queue_dequeue(q));
+  printf("%d ", queue_dequeue(q));
 
-  printtree(&q);
+  queue_print(q);
 
   return 0;
 }
