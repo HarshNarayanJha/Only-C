@@ -1,14 +1,9 @@
+#include "tree.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
-  int val;
-  struct Node *left;
-  struct Node *right;
-} Node;
-
 Node *createNode(int val) {
-  Node *newNode = (Node *) malloc(sizeof(Node));
+  Node *newNode = (Node *)malloc(sizeof(Node));
 
   if (newNode != NULL) {
     newNode->val = val;
@@ -34,13 +29,11 @@ void printTree_rec(Node *root, int level) {
 
   printTabs(level);
   printf("%d\n", root->val);
-  printTree_rec(root->left, level+1);
-  printTree_rec(root->right, level+1);
+  printTree_rec(root->left, level + 1);
+  printTree_rec(root->right, level + 1);
 }
 
-void printTree(Node *root) {
-  printTree_rec(root, 0);
-}
+void printTree(Node *root) { printTree_rec(root, 0); }
 
 int sum(Node *root) {
   if (root == NULL) {
@@ -50,7 +43,33 @@ int sum(Node *root) {
   return root->val + sum(root->left) + sum(root->right);
 }
 
-int main() {
+int minNodeIter(Node *root) {
+  if (root == NULL) {
+    return -1;
+  }
+
+  Node *current = root;
+  while (current->left != NULL) {
+    current = current->left;
+  }
+
+  return current->val;
+}
+
+int maxNodeIter(Node *root) {
+  if (root == NULL) {
+    return -1;
+  }
+
+  Node *current = root;
+  while (current->right != NULL) {
+    current = current->right;
+  }
+
+  return current->val;
+}
+
+int this_main() {
   Node *n1 = createNode(10);
   Node *n2 = createNode(11);
   Node *n3 = createNode(56);
