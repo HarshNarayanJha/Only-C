@@ -1,0 +1,11 @@
+[book]
+authors = ["Harsh Narayan Jha"]
+language = "en"
+multilingual = false
+src = "src"
+title = "DS Assignments"
+
+[output.html]
+default-theme = "light"
+
+[output.pdf]
