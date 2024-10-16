@@ -5,7 +5,15 @@ multilingual = false
 src = "src"
 title = "DS Assignments"
 
+[output.html.print]
+enable = true
+page-break = false
+
 [output.html]
 default-theme = "light"
 
 [output.pdf]
+margin-top = 0.4
+margin-bottom = 0.4
+margin-left = 0.4
+margin-right = 0.4
