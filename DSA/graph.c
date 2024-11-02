@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "stack.h"
+
 #define MAX_CHILD 5
 
 typedef struct Node {
@@ -47,6 +49,40 @@ void dfs(Node *graph) {
   }
 }
 
+void dfs_iter(Node *graph) {
+  static Node *seen[100] = {NULL}; // Using array as a set
+  static int seenSize = 0;
+
+  if (graph == NULL) {
+    return;
+  }
+
+  Stack s;
+  initStack(&s);
+  push(&s, graph);
+
+  while (!isEmpty(&s)) {
+    Node *node = pop(&s);
+
+    printf("%d ", node->val);
+    seen[seenSize++] = node;
+
+    for (int i = 0; i < node->numChildren; i++) {
+
+      bool nodeSeen = false;
+      for (int j = 0; j < seenSize; j++) {
+        if (seen[j] == node->childrens[i]) {
+          nodeSeen = true;
+        }
+      }
+
+      if (!nodeSeen) {
+        push(&s, node->childrens[i]);
+      }
+    }
+  }
+}
+
 int main() {
   Node *graph = createNode(0);
   addChild(graph, createNode(1));
@@ -57,4 +93,7 @@ int main() {
   addChild(graph->childrens[2], createNode(4));
 
   dfs(graph);
+  printf("\n");
+  dfs_iter(graph);
+  printf("\n");
 }
