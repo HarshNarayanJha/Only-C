@@ -83,6 +83,30 @@ void dfs_iter(Node *graph) {
   }
 }
 
+void dfs_post(Node *graph) {
+  static Node *seen[100] = {NULL}; // Using array as a set
+  static int seenSize = 0;
+
+  if (graph == NULL) {
+    return;
+  }
+
+  for (int i = 0; i < graph->numChildren; i++) {
+    bool nodeSeen = false;
+    for (int j = 0; j < seenSize; j++) {
+      if (seen[j] == graph->childrens[i]) {
+        nodeSeen = true;
+      }
+    }
+
+    if (!nodeSeen)
+      dfs_post(graph->childrens[i]);
+  }
+
+  printf("%d ", graph->val);
+  seen[seenSize++] = graph;
+}
+
 int main() {
   Node *graph = createNode(0);
   addChild(graph, createNode(1));
@@ -95,5 +119,7 @@ int main() {
   dfs(graph);
   printf("\n");
   dfs_iter(graph);
+  printf("\n");
+  dfs_post(graph);
   printf("\n");
 }
