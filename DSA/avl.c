@@ -111,6 +111,52 @@ Node *insert(Node *root, int val) {
   return root;
 }
 
+Node *deleteNode(Node *root, int val) {
+  if (root == NULL) {
+    return root;
+  } else if (val < root->val) {
+    root->left = deleteNode(root->left, val);
+  } else if (val > root->val) {
+    root->right = deleteNode(root->right, val);
+  } else {
+    if (root->left == NULL) {
+      Node *move = root->right;
+      free(root);
+      return move;
+    } else if (root->right == NULL) {
+      Node *move = root->left;
+      free(root);
+      return move;
+    } else {
+      Node *successor = root->right;
+      while (successor->left != NULL) {
+        successor = successor->left;
+      }
+      root->val = successor->val;
+      root->right = deleteNode(root->right, successor->val);
+    }
+  }
+
+  // Update height and rebalance
+  root->height = 1 + getHeight(root);
+
+  int bf = getBalanceFactor(root);
+
+  if (bf > 1 && getBalanceFactor(root->left) >= 0) {
+    return rightRotate(root);
+  } else if (bf > 1 && getBalanceFactor(root->left) < 0) {
+    root->left = leftRotate(root->left);
+    return rightRotate(root);
+  } else if (bf < -1 && getBalanceFactor(root->right) <= 0) {
+    return leftRotate(root);
+  } else if (bf < -1 && getBalanceFactor(root->right) > 0) {
+    root->right = rightRotate(root->right);
+    return leftRotate(root);
+  }
+
+  return root;
+}
+
 void printInOrder(Node *root) {
   if (root == NULL) {
     return;
@@ -154,4 +200,8 @@ int main() {
   printf("\n");
   printLevelOrder(avl);
   printf("\n");
+
+  avl = deleteNode(avl, 37);
+
+  printLevelOrder(avl);
 }
