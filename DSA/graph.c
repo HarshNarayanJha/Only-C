@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "queue.h"
 #include "stack.h"
 
 #define MAX_CHILD 5
@@ -60,12 +61,12 @@ void dfs_iter(Node *graph) {
   Stack s;
   initStack(&s);
   push(&s, graph);
+  seen[seenSize++] = graph;
 
   while (!isEmpty(&s)) {
     Node *node = pop(&s);
 
     printf("%d ", node->val);
-    seen[seenSize++] = node;
 
     for (int i = 0; i < node->numChildren; i++) {
 
@@ -78,6 +79,7 @@ void dfs_iter(Node *graph) {
 
       if (!nodeSeen) {
         push(&s, node->childrens[i]);
+        seen[seenSize++] = node->childrens[i];
       }
     }
   }
@@ -107,6 +109,41 @@ void dfs_post(Node *graph) {
   seen[seenSize++] = graph;
 }
 
+void bfs(Node *graph) {
+  static Node *seen[100] = {NULL}; // Using array as a set
+  static int seenSize = 0;
+
+  if (graph == NULL) {
+    return;
+  }
+
+  queue_t *q = queue_create();
+
+  queue_enqueue(q, graph);
+  seen[seenSize++] = graph;
+
+  while (!queue_is_empty(q)) {
+    Node *node = queue_dequeue(q);
+
+    printf("%d ", node->val);
+
+    for (int i = 0; i < node->numChildren; i++) {
+
+      bool nodeSeen = false;
+      for (int j = 0; j < seenSize; j++) {
+        if (seen[j] == node->childrens[i]) {
+          nodeSeen = true;
+        }
+      }
+
+      if (!nodeSeen) {
+        queue_enqueue(q, node->childrens[i]);
+        seen[seenSize++] = node->childrens[i];
+      }
+    }
+  }
+}
+
 int main() {
   Node *graph = createNode(0);
   addChild(graph, createNode(1));
@@ -121,5 +158,8 @@ int main() {
   dfs_iter(graph);
   printf("\n");
   dfs_post(graph);
+  printf("\n");
+
+  bfs(graph);
   printf("\n");
 }
