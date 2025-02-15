@@ -3,19 +3,20 @@
 
 struct Node {
   int val;
-  struct Node *next;
+  struct Node* next;
 };
 
 typedef struct Node Node;
 
-Node *front;
-Node *rear;
+Node* front;
+Node* rear;
 
-int isEmpty() { return front == NULL && rear == NULL; }
+int isEmpty() {
+  return front == NULL && rear == NULL;
+}
 
 void enqueue(int val) {
-
-  Node *newNode = (Node *)malloc(sizeof(Node));
+  Node* newNode = (Node*)malloc(sizeof(Node));
   newNode->val = val;
   newNode->next = NULL;
 
@@ -34,7 +35,7 @@ int dequeue() {
     return -1;
   }
 
-  Node *temp = front;
+  Node* temp = front;
   int val = temp->val;
 
   if (front == rear) {
@@ -47,12 +48,11 @@ int dequeue() {
 }
 
 void print() {
-
   if (isEmpty()) {
     return;
   }
 
-  Node *curr = front;
+  Node* curr = front;
   while (curr != NULL) {
     printf("%d -> ", curr->val);
     curr = curr->next;

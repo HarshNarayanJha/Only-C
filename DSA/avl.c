@@ -1,16 +1,17 @@
-#include "queue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "queue.h"
+
 typedef struct Node {
   int val;
-  struct Node *left;
-  struct Node *right;
+  struct Node* left;
+  struct Node* right;
   int height;
 } Node;
 
-Node *createNode(int val) {
-  Node *node = (Node *)malloc(sizeof(Node));
+Node* createNode(int val) {
+  Node* node = (Node*)malloc(sizeof(Node));
   node->val = val;
   node->left = NULL;
   node->right = NULL;
@@ -19,7 +20,7 @@ Node *createNode(int val) {
   return node;
 }
 
-int getHeight(Node *node) {
+int getHeight(Node* node) {
   if (node == NULL) {
     return -1;
   }
@@ -32,8 +33,8 @@ int getHeight(Node *node) {
   return h;
 }
 
-Node *searchNode(Node *root, int val) {
-  Node *x = root;
+Node* searchNode(Node* root, int val) {
+  Node* x = root;
 
   while (x != NULL && x->val != val) {
     if (val < x->val) {
@@ -50,9 +51,9 @@ Node *searchNode(Node *root, int val) {
   return x;
 }
 
-Node *leftRotate(Node *node) {
-  Node *B = node->right;
-  Node *Y = B->left;
+Node* leftRotate(Node* node) {
+  Node* B = node->right;
+  Node* Y = B->left;
 
   B->left = node;
   node->right = Y;
@@ -64,9 +65,9 @@ Node *leftRotate(Node *node) {
   return B;
 }
 
-Node *rightRotate(Node *node) {
-  Node *A = node->left;
-  Node *Y = A->right;
+Node* rightRotate(Node* node) {
+  Node* A = node->left;
+  Node* Y = A->right;
 
   A->right = node;
   node->left = Y;
@@ -78,11 +79,11 @@ Node *rightRotate(Node *node) {
   return A;
 }
 
-int getBalanceFactor(Node *root) {
+int getBalanceFactor(Node* root) {
   return (getHeight(root->left)) - (getHeight(root->right));
 }
 
-Node *insert(Node *root, int val) {
+Node* insert(Node* root, int val) {
   if (root == NULL) {
     return createNode(val);
   } else if (val < root->val) {
@@ -111,7 +112,7 @@ Node *insert(Node *root, int val) {
   return root;
 }
 
-Node *deleteNode(Node *root, int val) {
+Node* deleteNode(Node* root, int val) {
   if (root == NULL) {
     return root;
   } else if (val < root->val) {
@@ -120,15 +121,15 @@ Node *deleteNode(Node *root, int val) {
     root->right = deleteNode(root->right, val);
   } else {
     if (root->left == NULL) {
-      Node *move = root->right;
+      Node* move = root->right;
       free(root);
       return move;
     } else if (root->right == NULL) {
-      Node *move = root->left;
+      Node* move = root->left;
       free(root);
       return move;
     } else {
-      Node *successor = root->right;
+      Node* successor = root->right;
       while (successor->left != NULL) {
         successor = successor->left;
       }
@@ -157,7 +158,7 @@ Node *deleteNode(Node *root, int val) {
   return root;
 }
 
-void printInOrder(Node *root) {
+void printInOrder(Node* root) {
   if (root == NULL) {
     return;
   }
@@ -167,16 +168,16 @@ void printInOrder(Node *root) {
   printInOrder(root->right);
 }
 
-void printLevelOrder(Node *root) {
+void printLevelOrder(Node* root) {
   if (root == NULL) {
     return;
   }
 
-  queue_t *q = queue_create();
+  queue_t* q = queue_create();
   queue_enqueue(q, root);
 
   while (!queue_is_empty(q)) {
-    Node *node = queue_dequeue(q);
+    Node* node = queue_dequeue(q);
     printf("%d ", node->val);
     if (node->left != NULL) {
       queue_enqueue(q, node->left);
@@ -188,7 +189,7 @@ void printLevelOrder(Node *root) {
 }
 
 int main() {
-  Node *avl = NULL;
+  Node* avl = NULL;
   avl = insert(avl, 2);
   avl = insert(avl, 8);
   avl = insert(avl, 92);

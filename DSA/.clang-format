@@ -1,0 +1,15 @@
+BasedOnStyle: Google
+IndentWidth: 2
+ColumnLimit: 80
+AllowShortFunctionsOnASingleLine: Empty
+DerivePointerAlignment: false
+PointerAlignment: Left
+AlignAfterOpenBracket: Align
+AlignOperands: true
+AlignTrailingComments: true
+AllowAllParametersOfDeclarationOnNextLine: true
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Attach
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements

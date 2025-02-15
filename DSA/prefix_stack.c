@@ -7,7 +7,9 @@
 int arr[MAX];
 int length = 0;
 
-void push(int val) { arr[length++] = val; }
+void push(int val) {
+  arr[length++] = val;
+}
 
 int pop() {
   int last = arr[length - 1];
@@ -35,49 +37,49 @@ int main() {
       push(str[i] - '0');
     } else {
       switch (str[i]) {
-      case '+':
-        x = pop();
-        y = pop();
-        push(x + y);
-        break;
-      case '-':
-        x = pop();
-        y = pop();
-        push(x - y);
-        break;
-      case '*':
-        x = pop();
-        y = pop();
-        push(x * y);
-        break;
-      case '/':
-        x = pop();
-        y = pop();
-        if (y != 0) {
-          push(x / y);
-        } else {
-          printf("Division By 0\n");
+        case '+':
+          x = pop();
+          y = pop();
+          push(x + y);
+          break;
+        case '-':
+          x = pop();
+          y = pop();
+          push(x - y);
+          break;
+        case '*':
+          x = pop();
+          y = pop();
+          push(x * y);
+          break;
+        case '/':
+          x = pop();
+          y = pop();
+          if (y != 0) {
+            push(x / y);
+          } else {
+            printf("Division By 0\n");
+            return 1;
+          }
+          break;
+        case '%':
+          x = pop();
+          y = pop();
+          if (y != 0) {
+            push(x % y);
+          } else {
+            printf("Division By 0\n");
+            return 1;
+          }
+          break;
+        case '^':
+          x = pop();
+          y = pop();
+          push((int)pow(x, y));
+          break;
+        default:
+          printf("Invalid character: %c\n", str[i]);
           return 1;
-        }
-        break;
-      case '%':
-        x = pop();
-        y = pop();
-        if (y != 0) {
-          push(x % y);
-        } else {
-          printf("Division By 0\n");
-          return 1;
-        }
-        break;
-      case '^':
-        x = pop();
-        y = pop();
-        push((int)pow(x, y));
-        break;
-      default:
-        printf("Invalid character: %c\n", str[i]);
-        return 1;
       }
     }
   }

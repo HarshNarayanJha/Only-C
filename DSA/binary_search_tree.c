@@ -1,16 +1,17 @@
-#include "queue.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "queue.h"
+
 typedef struct Node {
   int val;
-  struct Node *left;
-  struct Node *right;
+  struct Node* left;
+  struct Node* right;
 } Node;
 
-Node *createNode(int val) {
-  Node *newNode = (Node *)malloc(sizeof(Node));
+Node* createNode(int val) {
+  Node* newNode = (Node*)malloc(sizeof(Node));
 
   if (newNode != NULL) {
     newNode->val = val;
@@ -27,7 +28,7 @@ void printTabs(int numtabs) {
   }
 }
 
-void printTree_rec(Node *root, int level) {
+void printTree_rec(Node* root, int level) {
   if (root == NULL) {
     printTabs(level);
     printf("NULL\n");
@@ -40,10 +41,12 @@ void printTree_rec(Node *root, int level) {
   printTree_rec(root->right, level + 1);
 }
 
-void printTree(Node *root) { printTree_rec(root, 0); }
+void printTree(Node* root) {
+  printTree_rec(root, 0);
+}
 
-bool insertNode(Node **rootptr, int val) {
-  Node *root = *rootptr;
+bool insertNode(Node** rootptr, int val) {
+  Node* root = *rootptr;
 
   if (root == NULL) {
     // tree is empty
@@ -62,7 +65,7 @@ bool insertNode(Node **rootptr, int val) {
   }
 }
 
-bool searchNode(Node *root, int val) {
+bool searchNode(Node* root, int val) {
   if (root == NULL) {
     return false;
   }
@@ -78,7 +81,7 @@ bool searchNode(Node *root, int val) {
   }
 }
 
-void traverseInOrder(Node *root) {
+void traverseInOrder(Node* root) {
   if (root == NULL) {
     return;
   }
@@ -88,7 +91,7 @@ void traverseInOrder(Node *root) {
   traverseInOrder(root->right);
 }
 
-void traversePostOrder(Node *root) {
+void traversePostOrder(Node* root) {
   if (root == NULL) {
     return;
   }
@@ -98,7 +101,7 @@ void traversePostOrder(Node *root) {
   printf("%d ", root->val);
 }
 
-void traversePreOrder(Node *root) {
+void traversePreOrder(Node* root) {
   if (root == NULL) {
     return;
   }
@@ -108,12 +111,12 @@ void traversePreOrder(Node *root) {
   traversePreOrder(root->right);
 }
 
-int minNodeIter(Node *root) {
+int minNodeIter(Node* root) {
   if (root == NULL) {
     return -1;
   }
 
-  Node *current = root;
+  Node* current = root;
   while (current->left != NULL) {
     current = current->left;
   }
@@ -121,12 +124,12 @@ int minNodeIter(Node *root) {
   return current->val;
 }
 
-int maxNodeIter(Node *root) {
+int maxNodeIter(Node* root) {
   if (root == NULL) {
     return -1;
   }
 
-  Node *current = root;
+  Node* current = root;
   while (current->right != NULL) {
     current = current->right;
   }
@@ -134,7 +137,7 @@ int maxNodeIter(Node *root) {
   return current->val;
 }
 
-int sum(Node *root) {
+int sum(Node* root) {
   if (root == NULL) {
     return 0;
   }
@@ -142,7 +145,7 @@ int sum(Node *root) {
   return root->val + sum(root->left) + sum(root->right);
 }
 
-int height(Node *root) {
+int height(Node* root) {
   if (root == NULL) {
     return -1;
   }
@@ -153,21 +156,18 @@ int height(Node *root) {
   return (left > right) ? left + 1 : right + 1;
 }
 
-void bfsTraversal(Node *root) {
-  if (root == NULL)
-    return;
+void bfsTraversal(Node* root) {
+  if (root == NULL) return;
 
-  queue_t *Q = queue_create();
+  queue_t* Q = queue_create();
 
   queue_enqueue(Q, root);
 
   while (!queue_is_empty(Q)) {
-    Node *current = queue_peek(Q);
+    Node* current = queue_peek(Q);
     printf("%d ", current->val);
-    if (current->left != NULL)
-      queue_enqueue(Q, current->left);
-    if (current->right != NULL)
-      queue_enqueue(Q, current->right);
+    if (current->left != NULL) queue_enqueue(Q, current->left);
+    if (current->right != NULL) queue_enqueue(Q, current->right);
     queue_dequeue(Q);
   }
 
@@ -175,7 +175,7 @@ void bfsTraversal(Node *root) {
 }
 
 int main() {
-  Node *root;
+  Node* root;
   insertNode(&root, 10);
   insertNode(&root, 12);
   insertNode(&root, 11);
@@ -213,8 +213,8 @@ int main() {
   printf("\nTraverse\n3. Pre Order: \n");
   traversePreOrder(root);
 
-  printf("\nMin and Max (Iterative): %d %d", minNodeIter(root),
-         maxNodeIter(root));
+  printf(
+      "\nMin and Max (Iterative): %d %d", minNodeIter(root), maxNodeIter(root));
 
   printf("\nHeight is: %d", height(root));
 

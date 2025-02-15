@@ -9,24 +9,24 @@
 
 typedef struct Node {
   int val;
-  struct Node *childrens[MAX_CHILD];
+  struct Node* childrens[MAX_CHILD];
   int numChildren;
 } Node;
 
-Node *createNode(int val) {
-  Node *newNode = (Node *)malloc(sizeof(Node));
+Node* createNode(int val) {
+  Node* newNode = (Node*)malloc(sizeof(Node));
   newNode->val = val;
   newNode->numChildren = 0;
 
   return newNode;
 }
 
-void addChild(Node *node, Node *child) {
+void addChild(Node* node, Node* child) {
   node->childrens[node->numChildren++] = child;
 }
 
-void dfs(Node *graph) {
-  static Node *seen[100] = {NULL}; // Using array as a set
+void dfs(Node* graph) {
+  static Node* seen[100] = {NULL};  // Using array as a set
   static int seenSize = 0;
 
   if (graph == NULL) {
@@ -45,13 +45,12 @@ void dfs(Node *graph) {
       }
     }
 
-    if (!nodeSeen)
-      dfs(graph->childrens[i]);
+    if (!nodeSeen) dfs(graph->childrens[i]);
   }
 }
 
-void dfs_iter(Node *graph) {
-  static Node *seen[100] = {NULL}; // Using array as a set
+void dfs_iter(Node* graph) {
+  static Node* seen[100] = {NULL};  // Using array as a set
   static int seenSize = 0;
 
   if (graph == NULL) {
@@ -64,12 +63,11 @@ void dfs_iter(Node *graph) {
   seen[seenSize++] = graph;
 
   while (!isEmpty(&s)) {
-    Node *node = pop(&s);
+    Node* node = pop(&s);
 
     printf("%d ", node->val);
 
     for (int i = 0; i < node->numChildren; i++) {
-
       bool nodeSeen = false;
       for (int j = 0; j < seenSize; j++) {
         if (seen[j] == node->childrens[i]) {
@@ -85,8 +83,8 @@ void dfs_iter(Node *graph) {
   }
 }
 
-void dfs_post(Node *graph) {
-  static Node *seen[100] = {NULL}; // Using array as a set
+void dfs_post(Node* graph) {
+  static Node* seen[100] = {NULL};  // Using array as a set
   static int seenSize = 0;
 
   if (graph == NULL) {
@@ -101,34 +99,32 @@ void dfs_post(Node *graph) {
       }
     }
 
-    if (!nodeSeen)
-      dfs_post(graph->childrens[i]);
+    if (!nodeSeen) dfs_post(graph->childrens[i]);
   }
 
   printf("%d ", graph->val);
   seen[seenSize++] = graph;
 }
 
-void bfs(Node *graph) {
-  static Node *seen[100] = {NULL}; // Using array as a set
+void bfs(Node* graph) {
+  static Node* seen[100] = {NULL};  // Using array as a set
   static int seenSize = 0;
 
   if (graph == NULL) {
     return;
   }
 
-  queue_t *q = queue_create();
+  queue_t* q = queue_create();
 
   queue_enqueue(q, graph);
   seen[seenSize++] = graph;
 
   while (!queue_is_empty(q)) {
-    Node *node = queue_dequeue(q);
+    Node* node = queue_dequeue(q);
 
     printf("%d ", node->val);
 
     for (int i = 0; i < node->numChildren; i++) {
-
       bool nodeSeen = false;
       for (int j = 0; j < seenSize; j++) {
         if (seen[j] == node->childrens[i]) {
@@ -145,7 +141,7 @@ void bfs(Node *graph) {
 }
 
 int main() {
-  Node *graph = createNode(0);
+  Node* graph = createNode(0);
   addChild(graph, createNode(1));
   addChild(graph, createNode(2));
   addChild(graph, createNode(3));

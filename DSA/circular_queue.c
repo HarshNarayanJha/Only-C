@@ -8,11 +8,15 @@ typedef struct {
   int rear;
 } queue;
 
-int isFull(queue *q) { return (q->rear + 1) % MAX == q->front; }
+int isFull(queue* q) {
+  return (q->rear + 1) % MAX == q->front;
+}
 
-int isEmpty(queue *q) { return q->rear == -1 && q->front == -1; }
+int isEmpty(queue* q) {
+  return q->rear == -1 && q->front == -1;
+}
 
-void enqueue(queue *q, int val) {
+void enqueue(queue* q, int val) {
   if (isFull(q)) {
     printf("Queue Overflow\n");
     return;
@@ -26,7 +30,7 @@ void enqueue(queue *q, int val) {
   q->arr[q->rear] = val;
 }
 
-int dequeue(queue *q) {
+int dequeue(queue* q) {
   if (isEmpty(q)) {
     printf("Queue Underflow\n");
     return -1;
@@ -42,7 +46,7 @@ int dequeue(queue *q) {
   return front;
 }
 
-void print(queue *q) {
+void print(queue* q) {
   if (isEmpty(q)) {
     return;
   }

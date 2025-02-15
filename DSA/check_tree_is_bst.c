@@ -1,10 +1,11 @@
-#include "tree.h"
 #include <stdbool.h>
 #include <stdio.h>
 
-bool isBST(Node *root);
+#include "tree.h"
 
-bool isBST(Node *root) {
+bool isBST(Node* root);
+
+bool isBST(Node* root) {
   if (root == NULL) {
     return true;
   }
@@ -16,7 +17,7 @@ bool isBST(Node *root) {
 }
 
 int main() {
-  Node *root = createNode(10);
+  Node* root = createNode(10);
   root->left = createNode(5);
   root->right = createNode(20);
 

@@ -11,7 +11,9 @@ void initdeque() {
   rear = -1;
 }
 
-int empty() { return front == -1 && rear == -1; }
+int empty() {
+  return front == -1 && rear == -1;
+}
 
 void insertFront(int val) {
   if (front == 0 && rear == MAX - 1) {

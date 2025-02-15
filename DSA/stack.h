@@ -8,11 +8,11 @@ typedef struct {
   int top;
 } Stack;
 
-void initStack(Stack *s);
-int isEmpty(Stack *s);
-int isFull(Stack *s);
-void push(Stack *s, void* value);
-void* pop(Stack *s);
-void* peek(Stack *s);
+void initStack(Stack* s);
+int isEmpty(Stack* s);
+int isFull(Stack* s);
+void push(Stack* s, void* value);
+void* pop(Stack* s);
+void* peek(Stack* s);
 
 #endif

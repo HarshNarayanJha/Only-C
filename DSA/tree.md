@@ -18,13 +18,14 @@ Height of Leaf nodes is 0
 Height of tree is height of root node
 
 ### Applications:
+
 1. Storing naturally hierarchical data (e.g. file system)
 2. organized data (e.g. BST)
 3. Trie -> fast dictionary
 4. Network Routing Algorithm
 
-
 # Binary Tree
+
 We had a look at the Tree, but it had too many children. Let's consider a Tree where each node has atmost 2 children.
 It's a BINARY TREE. Each node can have atmost two children
 
@@ -66,31 +67,31 @@ struct Node {
 But making them with arrays is kindof interetsing and challenging
 
 [2, 4, 1, 5, 8, 7, 9]
- 0  1  2  3  4  5  6
+0 1 2 3 4 5 6
 
 For a Node at Index `i`,
-  Left Child-index = `2i + 1`
-  Right Child-index = `2i + 2`
-
+Left Child-index = `2i + 1`
+Right Child-index = `2i + 2`
 
 ## Traversal
 
 1. Pre Order
-First the data, then the left subtree and then the right subtree
+   First the data, then the left subtree and then the right subtree
 
 2. Post Oder
-First the left subtree, then right subtree and then the data
+   First the left subtree, then right subtree and then the data
 
 3. In Oder
-First the left subtree, then the data, and lastly the right subtree
+   First the left subtree, then the data, and lastly the right subtree
 
 ### Height of tree
+
 $$ Height of tree = height of the root Node. $$
 Height of tree is the max(height of left subtree, height of right subtree) + 1
 base case is root == NULL then return -1 (to account for the extra 1 travel to get to the leaf node)
 
-
 # Binary Search Tree
+
 A binary tree in which for each node the values of nodes in the left subtree is less (or equal in some cases)
 than the the value of the node
 and the value of nodes in the right subtress is more than the value of node
@@ -98,6 +99,7 @@ and the value of nodes in the right subtress is more than the value of node
 Implemented using Linked List or Arrays
 
 ## Binary Tree Traversal
+
 1. Breadth-First-Search (BFS)
 
 It is Level ordered. It means we first need to traverse a whole level before moving to any child nodes.
@@ -106,4 +108,5 @@ Level Order Traversal.
 2. Depth-First-Search (DFS)
 
 If we visit a node, we go through it's entire subtree first child's subtree before going to the next child
-  - We can Do Inorder, preorder and postorder in DFS
+
+- We can Do Inorder, preorder and postorder in DFS
